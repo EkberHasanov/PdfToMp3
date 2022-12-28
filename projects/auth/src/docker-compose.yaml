@@ -1,0 +1,29 @@
+version: '3.5'
+
+services:
+  
+  db:
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: auth
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    
+    volumes:
+      - .dbdata:/var/lib/postgres
+    
+    ports:
+      - 5432:5432
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    command: sh -c 'python manage.py migrate || python manage.py runserver 0.0.0.0:8000'
+    depends_on:
+      - db

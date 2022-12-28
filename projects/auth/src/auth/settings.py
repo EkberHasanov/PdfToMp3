@@ -25,8 +25,12 @@ SECRET_KEY = 'django-insecure-!^93m5qqt3j#fwf-^3+0t#gu*xy6^3lk^2^1e8rk+&87l!fgkx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ['*']
 
+LOCAL_APPS = [
+    'accounts',
+]
 
 THIRD_PARTY_APPS = [
     'rest_framework',
@@ -42,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    *LOCAL_APPS,
     *THIRD_PARTY_APPS,
 ]
 
@@ -58,6 +62,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'auth.urls'
+
+AUTH_USER_MODEL = "accounts.User"
 
 TEMPLATES = [
     {
@@ -83,8 +89,12 @@ WSGI_APPLICATION = 'auth.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'auth',
+        'PASSWORD': 'admin',
+        'USER': 'admin',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
@@ -138,7 +148,5 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
-
-
 
 CORS_ALLOW_ALL_ORIGINS: bool = True
