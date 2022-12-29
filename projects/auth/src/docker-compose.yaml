@@ -1,29 +1,42 @@
-version: '3.5'
+version: "3.9"
 
 services:
   
+  backend:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    command: sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && sh /app/entrypoint.sh"
+
   db:
-    image: postgres:15.1-alpine
+    image: postgres:15.1
     restart: always
+    expose:
+      - 5432
     environment:
       POSTGRES_DB: auth
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     
     volumes:
-      - .dbdata:/var/lib/postgres
+      - postgres_data:/var/lib/postgresql/data/
     
     ports:
       - 5432:5432
 
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - 8000:8000
-    volumes:
-      - .:/app
-    command: sh -c 'python manage.py migrate || python manage.py runserver 0.0.0.0:8000'
-    depends_on:
-      - db
+      - 8080:8080
+
+volumes:
+  postgres_data:
