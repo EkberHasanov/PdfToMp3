@@ -6,14 +6,17 @@ services:
     depends_on:
       - db
     build:
-      context: .
+      context: ./src/
       dockerfile: Dockerfile
     env_file:
-      - .env
-    ports:
-      - 8000:8000
+      - ./src/.env
+    expose:
+      - 8000
+    # ports:
+    #   - 8000:8000
     volumes:
-      - .:/app
+      - ./src/:/app
+      - static_files:/app/staticfiles
     command: sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && sh /app/entrypoint.sh"
 
   db:
@@ -32,11 +35,17 @@ services:
     ports:
       - 5432:5432
 
-  adminer:
-    image: adminer
-    restart: always
+  nginx:
+    build:
+      context: ./nginx/
     ports:
-      - 8080:8080
+      - 80:80
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - static_files:/home/app/staticfiles
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
+  static_files:
