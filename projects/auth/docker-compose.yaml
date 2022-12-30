@@ -17,7 +17,7 @@ services:
     volumes:
       - ./src/:/app
       - static_files:/app/staticfiles
-    command: sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && sh /app/entrypoint.sh"
+    command: sh -c "sh /app/migrate.sh && sh /app/entrypoint.sh && sh /app/collectstatic.sh"
 
   db:
     image: postgres:15.1
