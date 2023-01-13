@@ -11,7 +11,7 @@ def verify_token(request: Request) -> tuple:
         return None, ("missing credential token", 401)
     
     response = requests.post(
-        f"http://{os.getenv('AUTH_SERVICE_ADRESS')}/api/token/verify/",
+        "http://127.0.0.1/api/token//api/token/verify/",
         headers={"Authorization": token}
     )
 

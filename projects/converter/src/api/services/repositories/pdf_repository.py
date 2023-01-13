@@ -1,5 +1,5 @@
-from models.crud.pdf_create import PDFCreate
-from models.crud.pdf_read import PDFRead
+from api.models.crud.pdf_create import PDFCreate
+from api.models.crud.pdf_read import PDFRead
 from api.models.database import collection
 from utils.uuid_util import get_uuid
 

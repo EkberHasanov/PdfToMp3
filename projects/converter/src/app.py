@@ -1,11 +1,11 @@
 from flask import Flask
-from api.routes.login import api as login_api
+from api.routes.controllers import api
 
 def create_app() -> Flask:
     app = Flask(__name__, instance_relative_config=True)
 
     app.config.from_object('config.dev_settings')
-    app.register_blueprint(login_api, url_prefix='/api')
+    app.register_blueprint(api, url_prefix='/api')
 
     return app
 

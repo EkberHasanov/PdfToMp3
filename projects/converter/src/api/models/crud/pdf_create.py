@@ -1,8 +1,8 @@
-from typing import Any
+from werkzeug.datastructures import FileStorage
 from models.base import BaseModel
 
 __all__ = ("PDFCreate",)
 
 
 class PDFCreate(BaseModel):
-    file: Any
+    file: FileStorage
