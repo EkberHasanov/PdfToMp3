@@ -1,9 +1,9 @@
 from flask import Blueprint, request
-from services.auth import access
+from api.services.auth import access
 
-api = Blueprint('api', __name__, url_prefix='/login')
+api = Blueprint('api', __name__,)
 
-@api.route("/", methods=["POST"]) # type: ignore
+@api.route("/login", methods=["GET", "POST"]) # type: ignore
 def login() -> None | tuple:
     token, error = access.login(request)
 
