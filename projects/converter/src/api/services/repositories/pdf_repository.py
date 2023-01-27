@@ -20,4 +20,10 @@ class PDFRepository:
         result = collection.insert_one(document)
 
         return PDFRepository.get(result.inserted_id)
+    
+    @staticmethod
+    def delete(pdf_id: str) -> None:
+        result = collection.delete_one({"_id": pdf_id})
+        if not result.deleted_count:
+            raise Exception("Could not find PDF file in database")
 

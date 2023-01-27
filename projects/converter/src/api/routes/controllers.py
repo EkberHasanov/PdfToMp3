@@ -3,8 +3,12 @@ from flask import Blueprint, request
 from api.services.auth import access, validate
 from api.services.converter import pdf_to_mp3
 from api.models.crud.pdf_create import PDFCreate
+from api.models.rabbitmq import connect
+
 
 api = Blueprint('api', __name__,)
+connection = connect()
+channel = connection.channel()
 
 @api.route("/login", methods=["GET", "POST"]) # type: ignore
 def login() -> None | tuple:
@@ -26,7 +30,7 @@ def upload() -> None | tuple:
     
     for _, file in request.files.items():
         create = PDFCreate(file=file)
-        error = pdf_to_mp3.upload(create=create, channel="...", access=access) # type: ignore TODO: create rabbitmq connection
+        error = pdf_to_mp3.upload(create=create, channel=channel, access=access)
 
         if error:
             return error

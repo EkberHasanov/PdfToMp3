@@ -12,6 +12,9 @@ class DevelopmentConfig(Config):
     database: str = 'db'
     collection: str = 'files'
     MONGODB_URI = 'mongodb://root:1234@db:27017'
-    
+    broker_host: str = 'rabbitmq'
+    broker_port: int = 5672
+    BROKER_URI = 'amqp://admin:1234@rabbitmq:5672'
+
 
 dev_settings = DevelopmentConfig()
