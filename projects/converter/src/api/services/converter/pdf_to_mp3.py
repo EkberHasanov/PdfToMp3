@@ -5,7 +5,7 @@ from api.models.crud.pdf_read import PDFRead
 from api.services.repositories.pdf_repository import PDFRepository
 
 
-def upload(create: PDFCreate, channel: pika.BlockingConnection, access: dict) -> Tuple | None:
+def upload(create: PDFCreate, channel, access: dict) -> Tuple | None:
     try:
         file_id: PDFRead = PDFRepository.create(create)
     except Exception as error:
@@ -22,10 +22,9 @@ def upload(create: PDFCreate, channel: pika.BlockingConnection, access: dict) ->
             routing_key="pdf",
             body=json.dumps(message),
             properties=pika.BasicProperties(
-                delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,
+                delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE, # type: ignore
             ),
         )
     except Exception as error:
-        print(error)
         PDFRepository.delete(pdf_id=file_id.pdf_id)
         return "internal server error", 500
