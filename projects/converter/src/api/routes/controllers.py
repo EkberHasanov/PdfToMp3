@@ -1,8 +1,8 @@
 import json
 from flask import Blueprint, request
 from api.services.auth import access, validate
-from api.services.converter import pdf_to_mp3
-from api.models.crud.pdf_create import PDFCreate
+from api.services.upload import upload_service
+from api.models.crud.pdf.pdf_create import PDFCreate
 from api.models.rabbitmq import connect
 from api.utils.file_util import allowed_file, file_save
 from src.config import dev_settings as settings
@@ -34,7 +34,7 @@ def upload() -> None | tuple:
         try:
             file_url = file_save(file=pdf_file)
             create = PDFCreate(file_url=file_url)
-            error = pdf_to_mp3.upload(create=create, channel=channel, access=access)
+            error = upload_service.upload(create=create, channel=channel, access=access)
             if error:
                 return error
             return "File successfully uploaded", 200

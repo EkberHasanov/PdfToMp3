@@ -1,7 +1,7 @@
 import json, pika
 from typing import Tuple
-from api.models.crud.pdf_create import PDFCreate
-from api.models.crud.pdf_read import PDFRead
+from api.models.crud.pdf.pdf_create import PDFCreate
+from api.models.crud.pdf.pdf_read import PDFRead
 from api.services.repositories.pdf_repository import PDFRepository
 
 
@@ -12,7 +12,7 @@ def upload(create: PDFCreate, channel, access: dict) -> Tuple | None:
         return "internal server error", 500
 
     message = {
-        "file_id": str(file_id),
+        "pdf_file_id": str(file_id),
         "mp3_file_id": None,
         "username": access["username"],
     }

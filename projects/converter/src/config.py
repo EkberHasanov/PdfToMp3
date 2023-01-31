@@ -13,7 +13,8 @@ class DevelopmentConfig(Config):
     DEBUG = True
     TESTING = True
     database: str = 'db'
-    collection: str = 'files'
+    pdf_collection: str = 'pdf'
+    mp3_collection: str = 'mp3'
     MONGODB_URI = 'mongodb://root:1234@db:27017'
     broker_host: str = 'rabbitmq'
     broker_port: int = 5672
