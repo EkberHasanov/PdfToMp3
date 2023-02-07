@@ -4,7 +4,7 @@ from api.routes.controllers import api
 def create_app() -> Flask:
     app = Flask(__name__, instance_relative_config=True)
 
-    app.config.from_object('config.dev_settings')
+    app.config.from_object('config.DevelopmentConfig')
     app.register_blueprint(api, url_prefix='/api')
 
     return app

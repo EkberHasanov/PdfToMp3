@@ -15,11 +15,11 @@ class DevelopmentConfig(Config):
     database: str = 'db'
     pdf_collection: str = 'pdf'
     mp3_collection: str = 'mp3'
-    MONGODB_URI = 'mongodb://root:1234@db:27017'
+    # MONGODB_URI = 'mongodb://root:1234@db:27017'
+    MONGODB_URI = 'mongodb://db:27017'
     broker_host: str = 'rabbitmq'
     broker_port: int = 5672
-    BROKER_URI = 'amqp://admin:1234@rabbitmq:5672'
+    BROKER_URI = 'amqp://guest:guest@rabbitmq:5672'
     ALLOWED_EXTENSIONS: Set[str] = {'pdf'}
+    UPLOAD_FOLDER: str = '/src/uploads/'
 
-
-dev_settings = DevelopmentConfig()

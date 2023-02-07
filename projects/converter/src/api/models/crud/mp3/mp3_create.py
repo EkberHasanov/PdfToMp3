@@ -1,4 +1,4 @@
-from models.base import BaseModel
+from api.models.base import BaseModel
 
 __all__ = ("MP3Create",)
 

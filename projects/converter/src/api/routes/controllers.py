@@ -5,7 +5,7 @@ from api.services.upload import upload_service
 from api.models.crud.pdf.pdf_create import PDFCreate
 from api.models.rabbitmq import connect
 from api.utils.file_util import allowed_file, file_save
-from src.config import dev_settings as settings
+
 
 api = Blueprint('api', __name__,)
 connection = connect()
@@ -39,6 +39,7 @@ def upload() -> None | tuple:
                 return error
             return "File successfully uploaded", 200
         except Exception as e:
+            print(e)
             return "Error uploading file", 500
     else:
         return "File format not supported, only pdf files are supported", 400

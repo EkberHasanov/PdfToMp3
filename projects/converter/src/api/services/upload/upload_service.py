@@ -9,6 +9,7 @@ def upload(create: PDFCreate, channel, access: dict) -> Tuple | None:
     try:
         file_id: PDFRead = PDFRepository.create(create)
     except Exception as error:
+        print(error)
         return "internal server error", 500
 
     message = {

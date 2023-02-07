@@ -1,7 +1,7 @@
 from api.models.crud.mp3.mp3_create import MP3Create
 from api.models.crud.mp3.mp3_read import MP3Read
 from api.models.database import mp3_collection
-from utils.uuid_util import get_uuid
+from api.utils.uuid_util import get_uuid
 
 
 __all__ = ("MP3Repository",)

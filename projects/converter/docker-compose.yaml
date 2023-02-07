@@ -1,7 +1,24 @@
 version: '3.9'
 
 services:
-  db:
+
+  # backend:
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+  #   build:
+  #     context: ./src/
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - ./src/.env
+  #   ports:
+  #     - 5000:5000
+  #   volumes:
+  #     - ./src/:/app
+  #   command: sh -c "python /app/app.py"
+
+
+  mongo:
     image: mongo:latest
     restart: always
     environment:

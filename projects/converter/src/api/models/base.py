@@ -12,7 +12,7 @@ class BaseModel(pydantic.BaseModel):
         return data
 
     def dict(self, include_nulls=False, **kwargs) -> dict:
-        kwargs['exclude_nulls'] = not include_nulls
+        # kwargs['exclude_nulls'] = not include_nulls
         return super().dict(**kwargs)
     
     class Config:

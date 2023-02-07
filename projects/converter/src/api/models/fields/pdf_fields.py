@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from src.api.utils.uuid_util import get_uuid
+from api.utils.uuid_util import get_uuid
 
 __all__ = ("PDFFields",)
 
