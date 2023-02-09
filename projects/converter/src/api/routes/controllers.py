@@ -5,6 +5,7 @@ from api.services.upload import upload_service
 from api.models.crud.pdf.pdf_create import PDFCreate
 from api.models.rabbitmq import connect
 from api.utils.file_util import allowed_file, file_save
+from api.models.database import pdf_collection
 
 
 api = Blueprint('api', __name__,)
@@ -24,8 +25,7 @@ def login() -> None | tuple:
 def upload() -> None | tuple:
     access, error = validate.verify_token(request)
     
-    access = json.loads(access)
-
+    # access = json.loads(access)
     if len(request.files) > 1 and len(request.files) < 1:
         return "Only one file required", 400
 
@@ -47,3 +47,11 @@ def upload() -> None | tuple:
 @api.route("/download", methods=["GET",]) # type: ignore
 def download():
     ...
+
+@api.route("/retrieve-db", methods=["GET",]) # type: ignore
+def test_for_retrieve_db():
+    documents = pdf_collection.find({})
+    result = []
+    for document in documents:
+        result.append(document)
+    return result

@@ -16,5 +16,5 @@ class BaseModel(pydantic.BaseModel):
         return super().dict(**kwargs)
     
     class Config:
-        extra = pydantic.Extra.forbid
+        # extra = pydantic.Extra.forbid
         anystr_strip_whitespace = True

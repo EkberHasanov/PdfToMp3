@@ -25,11 +25,14 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 1234
 
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
     volumes:
       - mongo_data:/var/lib/mongodb/data/
-    
-    ports:
-      - 5433:5432
+    networks:
+      - mongo_network
 
   rabbitmq:
     image: rabbitmq:3.11-management
@@ -39,3 +42,6 @@ services:
 
 volumes:
   mongo_data:
+
+networks:
+  mongo_network:

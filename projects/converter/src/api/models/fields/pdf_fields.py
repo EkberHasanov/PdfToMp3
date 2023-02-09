@@ -6,7 +6,7 @@ __all__ = ("PDFFields",)
 
 
 class PDFFields:
-    pdf_id = Field(
+    _id = Field(
         description="Unique identifier of this person in the database",
         example=get_uuid(),
         min_length=36,

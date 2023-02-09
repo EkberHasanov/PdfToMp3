@@ -11,6 +11,7 @@ class PDFRepository:
     @staticmethod
     def get(pdf_id: str) -> PDFRead:
         document = pdf_collection.find_one({"_id": pdf_id})
+        print(document, 14)
         if not document: raise Exception("Could not find PDF in database")
         return PDFRead(**document)
     
@@ -19,10 +20,9 @@ class PDFRepository:
         print("Creating PDF function...")
         document = create.dict()
         document["_id"] = get_uuid()
-        print(document)
         result = pdf_collection.insert_one(document)
-        print(result)
-        return PDFRepository.get(result.inserted_id)
+        print(result.inserted_id)
+        return result.inserted_id
     
     @staticmethod
     def delete(pdf_id: str) -> None:

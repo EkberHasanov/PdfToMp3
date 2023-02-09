@@ -9,13 +9,11 @@ def upload(create: PDFCreate, channel, access: dict) -> Tuple | None:
     try:
         file_id: PDFRead = PDFRepository.create(create)
     except Exception as error:
-        print(error)
         return "internal server error", 500
-
     message = {
-        "pdf_file_id": str(file_id.pdf_id),
+        "pdf_file_id": file_id,
         "mp3_file_id": None,
-        "username": access["username"],
+        "username": access["user_id"],
     }
     try:
         channel.basic_publish(
@@ -27,5 +25,5 @@ def upload(create: PDFCreate, channel, access: dict) -> Tuple | None:
             ),
         )
     except Exception as error:
-        PDFRepository.delete(pdf_id=file_id.pdf_id)
+        PDFRepository.delete(pdf_id=file_id._id)
         return "internal server error", 500

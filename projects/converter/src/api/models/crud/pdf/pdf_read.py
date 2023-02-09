@@ -5,5 +5,5 @@ __all__ = ("PDFRead",)
 
 
 class PDFRead(PDFCreate):
-    pdf_id: str = PDFFields.pdf_id
+    _id: str = PDFFields._id
 
